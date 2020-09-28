@@ -1,0 +1,439 @@
+plants.png
+size: 913, 1093
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+foliagePack
+  rotate: false
+  xy: 633, 55
+  size: 42, 60
+  orig: 42, 60
+  offset: 0, 0
+  index: 1
+foliagePack
+  rotate: false
+  xy: 0, 0
+  size: 42, 35
+  orig: 42, 35
+  offset: 0, 0
+  index: 2
+foliagePack
+  rotate: false
+  xy: 689, 0
+  size: 28, 54
+  orig: 28, 54
+  offset: 0, 0
+  index: 3
+foliagePack
+  rotate: false
+  xy: 538, 802
+  size: 102, 287
+  orig: 102, 287
+  offset: 0, 0
+  index: 4
+foliagePack
+  rotate: false
+  xy: 751, 384
+  size: 102, 207
+  orig: 102, 207
+  offset: 0, 0
+  index: 5
+foliagePack
+  rotate: false
+  xy: 0, 591
+  size: 86, 208
+  orig: 86, 208
+  offset: 0, 0
+  index: 6
+foliagePack
+  rotate: false
+  xy: 86, 591
+  size: 122, 208
+  orig: 122, 208
+  offset: 0, 0
+  index: 7
+foliagePack
+  rotate: false
+  xy: 416, 591
+  size: 88, 211
+  orig: 88, 211
+  offset: 0, 0
+  index: 8
+foliagePack
+  rotate: false
+  xy: 102, 802
+  size: 109, 214
+  orig: 109, 214
+  offset: 0, 0
+  index: 9
+foliagePack
+  rotate: false
+  xy: 504, 591
+  size: 151, 211
+  orig: 151, 211
+  offset: 0, 0
+  index: 10
+foliagePack
+  rotate: false
+  xy: 388, 802
+  size: 68, 235
+  orig: 68, 235
+  offset: 0, 0
+  index: 11
+foliagePack
+  rotate: false
+  xy: 208, 591
+  size: 86, 208
+  orig: 86, 208
+  offset: 0, 0
+  index: 12
+foliagePack
+  rotate: false
+  xy: 294, 591
+  size: 122, 208
+  orig: 122, 208
+  offset: 0, 0
+  index: 13
+foliagePack
+  rotate: false
+  xy: 655, 591
+  size: 88, 211
+  orig: 88, 211
+  offset: 0, 0
+  index: 14
+foliagePack
+  rotate: false
+  xy: 211, 802
+  size: 109, 214
+  orig: 109, 214
+  offset: 0, 0
+  index: 15
+foliagePack
+  rotate: false
+  xy: 743, 591
+  size: 151, 211
+  orig: 151, 211
+  offset: 0, 0
+  index: 16
+foliagePack
+  rotate: false
+  xy: 320, 802
+  size: 68, 235
+  orig: 68, 235
+  offset: 0, 0
+  index: 17
+foliagePack
+  rotate: false
+  xy: 527, 0
+  size: 52, 45
+  orig: 52, 45
+  offset: 0, 0
+  index: 18
+foliagePack
+  rotate: false
+  xy: 475, 0
+  size: 52, 45
+  orig: 52, 45
+  offset: 0, 0
+  index: 19
+foliagePack
+  rotate: false
+  xy: 62, 0
+  size: 38, 36
+  orig: 38, 36
+  offset: 0, 0
+  index: 20
+foliagePack
+  rotate: false
+  xy: 42, 0
+  size: 20, 36
+  orig: 20, 36
+  offset: 0, 0
+  index: 21
+foliagePack
+  rotate: false
+  xy: 871, 55
+  size: 42, 138
+  orig: 42, 138
+  offset: 0, 0
+  index: 22
+foliagePack
+  rotate: false
+  xy: 829, 55
+  size: 42, 138
+  orig: 42, 138
+  offset: 0, 0
+  index: 23
+foliagePack
+  rotate: false
+  xy: 675, 55
+  size: 35, 134
+  orig: 35, 134
+  offset: 0, 0
+  index: 24
+foliagePack
+  rotate: false
+  xy: 456, 802
+  size: 41, 268
+  orig: 41, 268
+  offset: 0, 0
+  index: 25
+foliagePack
+  rotate: false
+  xy: 497, 802
+  size: 41, 268
+  orig: 41, 268
+  offset: 0, 0
+  index: 26
+foliagePack
+  rotate: false
+  xy: 742, 802
+  size: 103, 291
+  orig: 103, 291
+  offset: 0, 0
+  index: 27
+foliagePack
+  rotate: false
+  xy: 547, 384
+  size: 102, 194
+  orig: 102, 194
+  offset: 0, 0
+  index: 28
+foliagePack
+  rotate: false
+  xy: 0, 802
+  size: 102, 211
+  orig: 102, 211
+  offset: 0, 0
+  index: 29
+foliagePack
+  rotate: false
+  xy: 640, 802
+  size: 102, 287
+  orig: 102, 287
+  offset: 0, 0
+  index: 30
+foliagePack
+  rotate: false
+  xy: 694, 193
+  size: 102, 190
+  orig: 102, 190
+  offset: 0, 0
+  index: 31
+foliagePack
+  rotate: false
+  xy: 649, 384
+  size: 102, 207
+  orig: 102, 207
+  offset: 0, 0
+  index: 32
+foliagePack
+  rotate: false
+  xy: 745, 55
+  size: 42, 138
+  orig: 42, 138
+  offset: 0, 0
+  index: 33
+foliagePack
+  rotate: false
+  xy: 787, 55
+  size: 42, 138
+  orig: 42, 138
+  offset: 0, 0
+  index: 34
+foliagePack
+  rotate: false
+  xy: 710, 55
+  size: 35, 134
+  orig: 35, 134
+  offset: 0, 0
+  index: 35
+foliagePack
+  rotate: false
+  xy: 592, 193
+  size: 102, 190
+  orig: 102, 190
+  offset: 0, 0
+  index: 36
+foliagePack
+  rotate: false
+  xy: 420, 193
+  size: 86, 187
+  orig: 86, 187
+  offset: 0, 0
+  index: 37
+foliagePack
+  rotate: false
+  xy: 0, 193
+  size: 122, 172
+  orig: 122, 172
+  offset: 0, 0
+  index: 38
+foliagePack
+  rotate: false
+  xy: 244, 193
+  size: 88, 183
+  orig: 88, 183
+  offset: 0, 0
+  index: 39
+foliagePack
+  rotate: false
+  xy: 796, 193
+  size: 109, 191
+  orig: 109, 191
+  offset: 0, 0
+  index: 40
+foliagePack
+  rotate: false
+  xy: 260, 384
+  size: 151, 192
+  orig: 151, 192
+  offset: 0, 0
+  index: 41
+foliagePack
+  rotate: false
+  xy: 479, 384
+  size: 68, 193
+  orig: 68, 193
+  offset: 0, 0
+  index: 42
+foliagePack
+  rotate: false
+  xy: 506, 193
+  size: 86, 187
+  orig: 86, 187
+  offset: 0, 0
+  index: 43
+foliagePack
+  rotate: false
+  xy: 122, 193
+  size: 122, 172
+  orig: 122, 172
+  offset: 0, 0
+  index: 44
+foliagePack
+  rotate: false
+  xy: 332, 193
+  size: 88, 183
+  orig: 88, 183
+  offset: 0, 0
+  index: 45
+foliagePack
+  rotate: false
+  xy: 0, 384
+  size: 109, 191
+  orig: 109, 191
+  offset: 0, 0
+  index: 46
+foliagePack
+  rotate: false
+  xy: 109, 384
+  size: 151, 192
+  orig: 151, 192
+  offset: 0, 0
+  index: 47
+foliagePack
+  rotate: false
+  xy: 411, 384
+  size: 68, 193
+  orig: 68, 193
+  offset: 0, 0
+  index: 48
+foliagePack
+  rotate: false
+  xy: 0, 55
+  size: 98, 55
+  orig: 98, 55
+  offset: 0, 0
+  index: 49
+foliagePack
+  rotate: false
+  xy: 98, 55
+  size: 139, 56
+  orig: 139, 56
+  offset: 0, 0
+  index: 50
+foliagePack
+  rotate: false
+  xy: 237, 55
+  size: 150, 58
+  orig: 150, 58
+  offset: 0, 0
+  index: 51
+foliagePack
+  rotate: false
+  xy: 100, 0
+  size: 138, 38
+  orig: 138, 38
+  offset: 0, 0
+  index: 52
+foliagePack
+  rotate: false
+  xy: 717, 0
+  size: 68, 54
+  orig: 68, 54
+  offset: 0, 0
+  index: 53
+foliagePack
+  rotate: false
+  xy: 317, 0
+  size: 79, 39
+  orig: 79, 39
+  offset: 0, 0
+  index: 54
+foliagePack
+  rotate: false
+  xy: 469, 55
+  size: 82, 59
+  orig: 82, 59
+  offset: 0, 0
+  index: 55
+foliagePack
+  rotate: false
+  xy: 621, 0
+  size: 68, 54
+  orig: 68, 54
+  offset: 0, 0
+  index: 56
+foliagePack
+  rotate: false
+  xy: 238, 0
+  size: 79, 39
+  orig: 79, 39
+  offset: 0, 0
+  index: 57
+foliagePack
+  rotate: false
+  xy: 387, 55
+  size: 82, 59
+  orig: 82, 59
+  offset: 0, 0
+  index: 58
+foliagePack
+  rotate: false
+  xy: 785, 0
+  size: 68, 55
+  orig: 68, 55
+  offset: 0, 0
+  index: 59
+foliagePack
+  rotate: false
+  xy: 396, 0
+  size: 79, 39
+  orig: 79, 39
+  offset: 0, 0
+  index: 60
+foliagePack
+  rotate: false
+  xy: 551, 55
+  size: 82, 60
+  orig: 82, 60
+  offset: 0, 0
+  index: 61
+foliagePack
+  rotate: false
+  xy: 579, 0
+  size: 42, 50
+  orig: 42, 50
+  offset: 0, 0
+  index: 62
