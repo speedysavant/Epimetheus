@@ -15,6 +15,11 @@ import com.epimetheus.game.core.component.render.ScaleComponent;
 import com.epimetheus.game.screen.util.ActionHandler;
 import com.epimetheus.game.screen.util.MouseMode;
 
+/**
+ * A specialized Entity for rendering the map, storing all map data, and handling all UI interactions involving the map.
+ * @author pinne
+ *
+ */
 public class MapEntity extends Actor implements Entity {
 
 	private EntityID id;
@@ -71,11 +76,6 @@ public class MapEntity extends Actor implements Entity {
 					);
 		}
 	}
-	
-//	public void clicked(Location location, int pointer, int button, ActionHandler actionHandler) {
-//		actionHandler.clickedOn(location, getTileAt(location));
-//	}
-	
 	
 	
 	@Override

@@ -8,6 +8,12 @@ import com.epimetheus.game.core.entity.Items;
 import com.epimetheus.game.core.entity.Tiles;
 import com.epimetheus.game.screen.GameScreen;
 
+/**
+ * Launches Epimetheus. It manages the game screen, static resource loading, and other basic setup.
+ * 
+ * @author Colin Pinnell 2020
+ *
+ */
 public class Epimetheus extends Game {
 
 	Screen screen;

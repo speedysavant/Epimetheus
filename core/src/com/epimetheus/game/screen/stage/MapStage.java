@@ -25,6 +25,14 @@ import com.epimetheus.game.util.Prototypes;
 import com.epimetheus.game.util.gen.PawnGenerator;
 import com.epimetheus.game.util.gen.SiteGenerator;
 
+/**
+ * 
+ * A container for game entities and systems. Also manages user interaction with entities. As a LibGDX Stage,
+ * most game entities intersect here.
+ * 
+ * @author Colin Pinnell 2020
+ *
+ */
 public class MapStage extends Stage implements Screen {
 	
 	Texture tex;
@@ -41,6 +49,9 @@ public class MapStage extends Stage implements Screen {
 	private PlanSystem planSystem;
 	private RenderSystem renderSystem;
 	
+	/**
+	 * Creates a default MapStage with default viewport, camera, and a simple randomized world
+	 */
 	public MapStage() {
 		super(new ExtendViewport(800,600, new OrthographicCamera()));
 		planSystem = new PlanSystem(this);
@@ -63,10 +74,22 @@ public class MapStage extends Stage implements Screen {
 		tileCursor.toFront();
 	}
 	
+	/**
+	 * 
+	 * @return the CameraHarness object used to control the Camera position
+	 */
 	public CameraHarness getCameraHarness() {
 		return cameraHarness;
 	}
 	
+	/**
+	 * Adds an Entity to the MapStage's entity list. This will also add it to any applicable
+	 * Systems that the MapStage is handling.
+	 * 
+	 * If an entity is being placed at a location that already has an entity there, this method will fail.
+	 * 
+	 * @param ent	The Entity being added.
+	 */
 	public void addEntity(Entity ent) {
 		Location location = ((LocationComponent)(ent.getComponent(LocationComponent.class))).getLocation();
 		EntityList ents = entitiesAt(location); 
@@ -87,14 +110,28 @@ public class MapStage extends Stage implements Screen {
 		}
 	}
 	
-	
+	/**
+	 * @param loc	The tile location, rounded down if not already
+	 * @return	The Tile at the given location. Returns null if no tile exists there.
+	 */
 	public Tiles tileAt(Location loc) {
 		return mapEnt.getTileAt(loc);
 	}
+	/**
+	 * @param loc	The tile location
+	 * @return	An EntityList of all Entities at the Location
+	 */
 	public EntityList entitiesAt(Location loc){
 		return entities.allEntitiesAt(loc);
 	}
 	
+	/**
+	 * Draws all Entities to the Stage's Batch.
+	 * 
+	 * First any Actors not in the RenderSystem are drawn. Then, the RenderSystem is called, which draws any
+	 * Entity with an ActorComponent or RenderComponent. 
+	 */
+	@Override
 	public void draw() {
 		cameraHarness.update();
 		getViewport().getCamera().update();
@@ -135,6 +172,5 @@ public class MapStage extends Stage implements Screen {
 	public void hide() {
 		
 	}
-	
 	
 }

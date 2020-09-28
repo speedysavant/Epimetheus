@@ -7,6 +7,14 @@ import com.badlogic.gdx.graphics.GL20;
 import com.epimetheus.game.screen.stage.MapStage;
 import com.epimetheus.game.screen.stage.UIStage;
 
+/**
+ * 
+ * This class manages the main gameplay components. As a LibGDX Screen, it holds the Stages involved in presenting the game,
+ * including both UI and game components. 
+ * 
+ * @author Colin Pinnell 2020
+ *
+ */
 public class GameScreen implements Screen {
 
 	private MapStage mapStage;
