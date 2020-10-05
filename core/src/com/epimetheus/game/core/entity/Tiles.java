@@ -20,7 +20,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
  *
  */
 public enum Tiles {
-	DIRT, GRASS, STONE;
+	SOIL, ROCKYSOIL, SAND, GRAVEL, STONE,
+	E_0, E_1, E_2, E_3, E_4, E_5, E_6, E_7, E_8;
 	
 	private static Map<Tiles, TextureRegion> textures = new HashMap<>();
 	private static int size = 128;
@@ -53,8 +54,20 @@ public enum Tiles {
 	 */
 	public static void load() {
 		TextureAtlas atlas = new TextureAtlas("img/tile/tiles.txt");
-		textures.put(DIRT, atlas.findRegion("dirt1"));
-		textures.put(GRASS, atlas.findRegion("grass1"));
-		textures.put(STONE, atlas.findRegion("stone1"));
+		textures.put(SOIL, atlas.findRegion("fertilesoil"));
+		textures.put(ROCKYSOIL, atlas.findRegion("rockysoil"));
+		textures.put(SAND, atlas.findRegion("sand"));
+		textures.put(GRAVEL, atlas.findRegion("gravel"));
+		textures.put(STONE, atlas.findRegion("stone"));
+		
+		textures.put(E_0, atlas.findRegion("elevation", 0));
+		textures.put(E_1, atlas.findRegion("elevation", 1));
+		textures.put(E_2, atlas.findRegion("elevation", 2));
+		textures.put(E_3, atlas.findRegion("elevation", 3));
+		textures.put(E_4, atlas.findRegion("elevation", 4));
+		textures.put(E_5, atlas.findRegion("elevation", 5));
+		textures.put(E_6, atlas.findRegion("elevation", 6));
+		textures.put(E_7, atlas.findRegion("elevation", 7));
+		textures.put(E_8, atlas.findRegion("elevation", 8));
 	}
 }

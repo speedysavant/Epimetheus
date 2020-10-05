@@ -1,25 +1,102 @@
 tiles.png
-size: 384, 128
+size: 1792, 128
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-dirt1
+elevation
   rotate: false
   xy: 0, 0
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
-  index: -1
-grass1
+  index: 0
+elevation
   rotate: false
   xy: 128, 0
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
-  index: -1
-stone1
+  index: 1
+elevation
   rotate: false
   xy: 256, 0
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 2
+elevation
+  rotate: false
+  xy: 384, 0
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 3
+elevation
+  rotate: false
+  xy: 512, 0
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 4
+elevation
+  rotate: false
+  xy: 640, 0
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 5
+elevation
+  rotate: false
+  xy: 768, 0
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 6
+elevation
+  rotate: false
+  xy: 896, 0
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 7
+elevation
+  rotate: false
+  xy: 1024, 0
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 8
+fertilesoil
+  rotate: false
+  xy: 1152, 0
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+gravel
+  rotate: false
+  xy: 1280, 0
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+rockysoil
+  rotate: false
+  xy: 1408, 0
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+sand
+  rotate: false
+  xy: 1536, 0
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+stone
+  rotate: false
+  xy: 1664, 0
   size: 128, 128
   orig: 128, 128
   offset: 0, 0

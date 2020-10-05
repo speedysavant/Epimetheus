@@ -47,6 +47,9 @@ public class MapEntity extends Actor implements Entity {
 		});
 	}
 	
+	public Map<Location, Tiles> getTiles() {
+		return tiles;
+	}
 	public Tiles getTileAt(Location location) {
 		return tiles.get(location.floor());
 	}

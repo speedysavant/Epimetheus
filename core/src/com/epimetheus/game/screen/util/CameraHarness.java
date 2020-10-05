@@ -11,7 +11,7 @@ public class CameraHarness extends InputAdapter {
 	private OrthographicCamera camera;
 	
 	private int keyMoveSpeed = 20;
-	private float zoomSpeed = 0.10f;
+	private float zoomSpeed = 0.5f;
 	private float currentZoom = 0;
 	private Vector2 cameraMoveVec = new Vector2();
 	private Vector2 prevDrag = new Vector2();

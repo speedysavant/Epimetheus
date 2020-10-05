@@ -23,6 +23,7 @@ import com.epimetheus.game.screen.util.ActionHandler;
 import com.epimetheus.game.screen.util.CameraHarness;
 import com.epimetheus.game.util.Prototypes;
 import com.epimetheus.game.util.gen.PawnGenerator;
+import com.epimetheus.game.util.gen.PondGenerator;
 import com.epimetheus.game.util.gen.SiteGenerator;
 
 /**
@@ -39,6 +40,8 @@ public class MapStage extends Stage implements Screen {
 	
 	// Entities
 	private MapEntity mapEnt;
+	private EntityList ponds;
+	// private EntityList rivers = new EntityList();
 	private EntityList entities = new EntityList();
 	private TileCursor tileCursor;
 	
@@ -63,6 +66,10 @@ public class MapStage extends Stage implements Screen {
 		
 		mapEnt = (SiteGenerator.testMap(50, 40, Tiles.getSize(), actionHandler));
 		this.addActor(mapEnt);
+		
+		ponds = PondGenerator.pondsByLowest(3, 64, mapEnt.getTiles(), actionHandler);
+		for (Entity water: ponds)
+			addEntity(water);
 		
 		for (Entity pawn: PawnGenerator.generateRandom(20, 50, 40, actionHandler))
 			addEntity(pawn);

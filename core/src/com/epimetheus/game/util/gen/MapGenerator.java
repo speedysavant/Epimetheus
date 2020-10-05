@@ -33,7 +33,7 @@ public class MapGenerator {
 		Map<Location, Tiles> tiles = new HashMap<>();
 		for (int x = 0; x < w; x++) 
 			for (int y = 0; y < h; y++)
-				tiles.put(new Location(x, y, 0), Tiles.DIRT);
+				tiles.put(new Location(x, y, 0), Tiles.ROCKYSOIL);
 		ent.setTiles(tiles);
 
 		return ent;

@@ -1,5 +1,7 @@
 package com.epimetheus.game.core.entity;
 
+import java.util.List;
+
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -74,6 +76,44 @@ public class Location implements Comparable<Location>{
 		return new Location(world);
 	}
 	
+	public Location west() {
+		return new Location(x-1f, y, z);
+	}
+	public Location east() {
+		return new Location(x+1f, y, z);
+	}
+	public Location north() {
+		return new Location(x, y+1f, z);
+	}
+	public Location south() {
+		return new Location(x, y-1f, z);
+	}
+	public Location northwest() {
+		return new Location(x-1f, y+1f, z);
+	}
+	public Location northeast() {
+		return new Location(x+1f, y+1f, z);
+	}
+	public Location southwest() {
+		return new Location(x-1f, y-1f, z);
+	}
+	public Location southeast() {
+		return new Location(x+1f, y-1f, z);
+	}
+	
+	public Location[] neighbours() {
+		return new Location[] {
+				this.west(),
+				this.east(),
+				this.north(),
+				this.south(),
+				this.northwest(),
+				this.southeast(),
+				this.northeast(),
+				this.southwest()
+		};
+	}
+	
 	@Override
 	public String toString() {
 		return "(" + x + ", " + y + ", " + z + ")";
@@ -92,5 +132,38 @@ public class Location implements Comparable<Location>{
 	@Override
 	public int compareTo(Location c) {
 		return (int) Math.ceil((c.x - x) + (c.y-y) + (c.z-z));
+	}
+	
+	public boolean isInList(List<Location> list, boolean xy_only) {
+		if (xy_only) {
+			for (Location n: list) 
+				if (n.getX() == x && n.getY() == y) 
+					return true;
+			return false;
+		} else {
+			for (Location n: list) 
+				if (n.getX() == x && n.getY() == y && n.getZ() == z) 
+					return true;
+			return false;
+		}
+	}
+	
+	public void removeFromList(List<Location> list, boolean xy_only) {
+		Location toRemove = null;
+		if (xy_only) {
+			for (Location n: list) 
+				if (n.getX() == x && n.getY() == y) { 
+					toRemove = n;
+					break;
+				}
+		} else {
+			for (Location n: list) 
+				if (n.getX() == x && n.getY() == y && n.getZ() == z) { 
+					toRemove = n;
+					break;
+				}
+		}
+		if (toRemove != null)
+			list.remove(toRemove);
 	}
 }
