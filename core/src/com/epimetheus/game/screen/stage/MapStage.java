@@ -3,19 +3,18 @@ package com.epimetheus.game.screen.stage;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
-import com.epimetheus.game.core.component.Component;
-import com.epimetheus.game.core.component.process.LocationComponent;
-import com.epimetheus.game.core.component.process.PlanComponent;
-import com.epimetheus.game.core.component.render.RenderComponent;
-import com.epimetheus.game.core.entity.ActorEntity;
 import com.epimetheus.game.core.entity.Entity;
 import com.epimetheus.game.core.entity.EntityList;
+import com.epimetheus.game.core.entity.Flora;
 import com.epimetheus.game.core.entity.Items;
 import com.epimetheus.game.core.entity.Location;
 import com.epimetheus.game.core.entity.MapEntity;
 import com.epimetheus.game.core.entity.Tiles;
+import com.epimetheus.game.core.system.SystemController;
+import com.epimetheus.game.core.system.process.JobSystem;
 import com.epimetheus.game.core.system.process.PlanSystem;
 import com.epimetheus.game.core.system.render.RenderSystem;
 import com.epimetheus.game.screen.ui.TileCursor;
@@ -41,40 +40,49 @@ public class MapStage extends Stage implements Screen {
 	// Entities
 	private MapEntity mapEnt;
 	private EntityList ponds;
-	// private EntityList rivers = new EntityList();
-	private EntityList entities = new EntityList();
+//	private EntityList entities = new EntityList();
 	private TileCursor tileCursor;
 	
 	// Systems
+	private SystemController systemController;
 	private ActionHandler actionHandler;
 	private CameraHarness cameraHarness;
 	
-	private PlanSystem planSystem;
-	private RenderSystem renderSystem;
+//	private PlanSystem planSystem;
+//	private RenderSystem renderSystem;
+//	private JobSystem jobSystem;
 	
 	/**
 	 * Creates a default MapStage with default viewport, camera, and a simple randomized world
 	 */
 	public MapStage() {
 		super(new ExtendViewport(800,600, new OrthographicCamera()));
-		planSystem = new PlanSystem(this);
-		renderSystem = new RenderSystem(this);
+		systemController = new SystemController(this);
+		systemController.setJobSystem(new JobSystem());
+		systemController.setPlanSystem(new PlanSystem(this));
+		systemController.setRenderSystem(new RenderSystem(this));
 		actionHandler = new ActionHandler(this);
 		cameraHarness = new CameraHarness(this);
 		
-		Prototypes.init(planSystem);
+		Prototypes.init(systemController.getPlanSystem());
 		
 		mapEnt = (SiteGenerator.testMap(50, 40, Tiles.getSize(), actionHandler));
 		this.addActor(mapEnt);
 		
-		ponds = PondGenerator.pondsByLowest(3, 64, mapEnt.getTiles(), actionHandler);
+		ponds = PondGenerator.pondsByLowest(3, 96, mapEnt.getTiles(), actionHandler);
 		for (Entity water: ponds)
-			addEntity(water);
+			systemController.addEntity(water);
 		
 		for (Entity pawn: PawnGenerator.generateRandom(20, 50, 40, actionHandler))
-			addEntity(pawn);
+			systemController.addEntity(pawn);
 		
-		addEntity(Items.generate("Test Item", new Location(1f,1f,1f), actionHandler));
+		for (int i = 0; i < 50; i++)
+			systemController.addEntity(Flora.generate(
+					"Test Plant", 
+					new Location(MathUtils.random(49), MathUtils.random(39),0), 
+					actionHandler));
+		
+		systemController.addEntity(Items.generate("Test Item", new Location(1f,1f,1f), actionHandler));
 		
 		tileCursor = new TileCursor(this.getCamera());
 		this.addActor(tileCursor);
@@ -98,24 +106,28 @@ public class MapStage extends Stage implements Screen {
 	 * @param ent	The Entity being added.
 	 */
 	public void addEntity(Entity ent) {
-		Location location = ((LocationComponent)(ent.getComponent(LocationComponent.class))).getLocation();
-		EntityList ents = entitiesAt(location); 
-		
-		if (ents.size() != 0) {
-			System.out.println("Unable to place entity, colliding with " + ents.size() + " entities");
-			return;
-		}
-		
-		entities.add(ent);
-		
-		if (ent instanceof ActorEntity)
-			addActor((ActorEntity)ent);
-		
-		for (Component c: ent.getComponents()) {
-			if (c instanceof PlanComponent) planSystem.accept(ent);
-			if (c instanceof RenderComponent) renderSystem.accept(ent);
-		}
+		systemController.addEntity(ent);
 	}
+//		Location location = ((LocationComponent)(ent.getComponent(LocationComponent.class))).getLocation();
+//		EntityList ents = entitiesAt(location); 
+//		
+//		if (ents.size() != 0) {
+//			System.out.println("Unable to place entity, colliding with " + ents.size() + " entities");
+//			return;
+//		}
+//		
+//		entities.add(ent);
+//		
+//		if (ent instanceof ActorEntity)
+//			addActor((ActorEntity)ent);
+//		
+//		for (Component c: ent.getComponents()) {
+//			if (c instanceof PlanComponent) planSystem.accept(ent);
+//			if (c instanceof RenderComponent) renderSystem.accept(ent);
+//			if (c instanceof JobComponent) jobSystem.accept(ent);
+//			if (c instanceof WorkerComponent) jobSystem.accept(ent);
+//		}
+//	}
 	
 	/**
 	 * @param loc	The tile location, rounded down if not already
@@ -129,7 +141,7 @@ public class MapStage extends Stage implements Screen {
 	 * @return	An EntityList of all Entities at the Location
 	 */
 	public EntityList entitiesAt(Location loc){
-		return entities.allEntitiesAt(loc);
+		return systemController.getEntities().allEntitiesAt(loc);
 	}
 	
 	/**
@@ -140,13 +152,15 @@ public class MapStage extends Stage implements Screen {
 	 */
 	@Override
 	public void draw() {
+		systemController.getJobSystem().process();
+		
 		cameraHarness.update();
 		getViewport().getCamera().update();
 		getBatch().setProjectionMatrix(getViewport().getCamera().combined);
 		super.draw();
 		
 		getBatch().begin();
-		renderSystem.process();
+		systemController.getRenderSystem().process();
 		getBatch().end();
 	}
 	

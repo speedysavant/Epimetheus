@@ -1,7 +1,7 @@
 package com.epimetheus.game.screen.util;
 
 public enum MouseMode {
-	SELECTING, PLANNING;
+	SELECTING, PLANNING, CUT_PLANT, MINE;
 	
 	private static MouseMode current;
 	private static int prototypeId;

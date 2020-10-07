@@ -14,10 +14,11 @@ public abstract class MultiSystem implements System {
 	
 	protected List<Map<Class<? extends Component>, Component>> componentList = new LinkedList<>();
 	
-	@Override
-	public void accept(Entity ent) {
-		throw new UnsupportedOperationException();
+	protected SystemController controller;
+	public void setSystemController(SystemController controller) {
+		this.controller = controller;
 	}
+	
 	protected void accept(EntityList ents, @SuppressWarnings("unchecked") Class<? extends Component> ... types) {
 		List<Class<? extends Component>> classList = Arrays.asList(types);
 		for (Entity ent: ents) {
@@ -27,5 +28,16 @@ public abstract class MultiSystem implements System {
 					map.put(c.getClass(), c);
 			componentList.add(map);
 		}
+	}
+	
+	public void remove(Entity ent) {
+		Map<Class<? extends Component>, Component> toRemove = null;
+		for (Map<Class<? extends Component>, Component> entry: componentList)
+			if (((Component)((entry.values().toArray()[0]))).getEntity() == ent) {
+				toRemove = entry;
+				break;
+			}
+		if (toRemove != null)
+			componentList.remove(toRemove);
 	}
 }

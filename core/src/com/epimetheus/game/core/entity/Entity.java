@@ -11,6 +11,7 @@ public interface Entity {
 	public void addComponent(Component component);
 	public void removeComponent(Component component);
 	public void clearComponents();
+	public boolean hasComponent(Class<? extends Component> componentType);
 	public List<Component> getComponents();
 	public Component getComponent(Class<? extends Component> componentType);
 }

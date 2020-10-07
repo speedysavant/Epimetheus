@@ -58,6 +58,10 @@ public class ActorEntity extends Actor implements Entity {
 				return comp;
 		return null;
 	}
+	public boolean hasComponent(Class<? extends Component> componentType) {
+		Component c = getComponent(componentType);
+		return c != null;
+	}
 
 	public static Entity generate(
 			String name, 

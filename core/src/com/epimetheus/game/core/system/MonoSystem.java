@@ -11,6 +11,11 @@ public abstract class MonoSystem implements System {
 	private List<Component> components = new LinkedList<>();
 	private Class<? extends Component> componentType;
 	
+	protected SystemController controller;
+	public void setSystemController(SystemController controller) {
+		this.controller = controller;
+	}
+	
 	public void accept(List<Entity> ents) {
 		for(Entity ent: ents)
 			accept(ent);
@@ -19,5 +24,15 @@ public abstract class MonoSystem implements System {
 		Component comp = ent.getComponent(componentType);
 		if (comp != null)
 			components.add(comp);
+	}
+	public void remove(Entity ent) {
+		Component toRemove = null;
+		for (Component c: components)
+			if (c.getEntity() == ent) {
+				toRemove = c;
+				break;
+			}
+		if (toRemove != null)
+			components.remove(toRemove);
 	}
 }

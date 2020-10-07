@@ -39,6 +39,12 @@ public class Prototypes {
 				new PlanRequirement[] {
 						new PlanRequirement(1, "dust", 100)
 		}));
+		prototypes.put(3, new Prototype(
+				"cut_plant", 
+				2, 
+				"ui/white_reticles", "crosshair147", 
+				20, 
+				null));
 	}
 	
 	public static Entity toEntity(int prototypeId, Location location, ActionHandler handler) {

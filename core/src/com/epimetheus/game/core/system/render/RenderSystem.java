@@ -15,10 +15,12 @@ import com.epimetheus.game.core.entity.Entity;
 import com.epimetheus.game.core.entity.EntityList;
 import com.epimetheus.game.core.entity.Location;
 import com.epimetheus.game.core.system.MultiSystem;
+import com.epimetheus.game.core.system.SystemController;
 import com.epimetheus.game.screen.stage.MapStage;
 
 public class RenderSystem extends MultiSystem {
 
+	protected SystemController controller;
 	private Batch batch;
 	
 	private int tileSize = 128;
@@ -26,6 +28,10 @@ public class RenderSystem extends MultiSystem {
 	
 	public RenderSystem(MapStage mapStage) {
 		this.batch = mapStage.getBatch();
+	}
+	
+	public void setSystemController(SystemController controller) {
+		this.controller = controller;
 	}
 	
 	@SuppressWarnings("unchecked")

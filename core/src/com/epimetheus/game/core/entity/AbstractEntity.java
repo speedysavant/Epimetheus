@@ -44,6 +44,10 @@ public class AbstractEntity implements Entity {
 				return comp;
 		return null;
 	}
+	public boolean hasComponent(Class<? extends Component> componentType) {
+		Component c = getComponent(componentType);
+		return c != null;
+	}
 	
 	public static Entity generate() {
 		AbstractEntity ent = new AbstractEntity();

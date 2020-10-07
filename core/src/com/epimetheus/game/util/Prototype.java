@@ -21,8 +21,9 @@ public class Prototype {
 		this.atlasId = atlasId;
 		this.regionId = regionId;
 		this.workRequired = workRequired;
-		for (int i = 0; i < requirements.length; i++)
-			this.requirements.add(requirements[i]);
+		if (requirements != null)
+			for (int i = 0; i < requirements.length; i++)
+				this.requirements.add(requirements[i]);
 	}
 	public String getName() {
 		return name;

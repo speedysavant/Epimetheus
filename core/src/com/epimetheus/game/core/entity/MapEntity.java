@@ -110,4 +110,11 @@ public class MapEntity extends Actor implements Entity {
 				return comp;
 		return null;
 	}
+	public boolean hasComponent(Class<? extends Component> componentType) {
+		Component c = getComponent(componentType);
+		return c != null;
+	}
+	public void destroy() {
+		
+	}
 }
