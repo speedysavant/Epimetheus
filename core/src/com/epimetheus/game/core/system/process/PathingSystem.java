@@ -99,11 +99,16 @@ public class PathingSystem extends MultiSystem {
 			prevLoc = nextLoc;
 		}
 		
-		float percentTravelled = movePoints / prevLoc.distanceTo(nextLoc);
+		float dist = prevLoc.distanceTo(nextLoc);
+		float percentTravelled = 0;
+		if (dist > 0) 
+			percentTravelled = movePoints / prevLoc.distanceTo(nextLoc);
+		
 		float xd = nextLoc.getX() + ((nextLoc.getX() - prevLoc.getX()) * percentTravelled);
 		float yd = nextLoc.getY() + ((nextLoc.getY() - prevLoc.getY()) * percentTravelled);
 		float zd = nextLoc.getZ() + ((nextLoc.getZ() - prevLoc.getZ()) * percentTravelled);
-		lc.setLocation(new Location(xd, yd, zd));
+		Location newLoc = new Location(xd, yd, zd);
+		lc.setLocation(newLoc);
 	}
 	
 	private void completePath(MoveComponent mover, LocationComponent lc) {

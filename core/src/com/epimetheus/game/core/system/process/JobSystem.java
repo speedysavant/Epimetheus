@@ -89,7 +89,7 @@ public class JobSystem extends MultiSystem {
 		} else {
 			float remainingWork = (job.getWork() - (worker.getWorkRate() * delta));
 			job.setWork(remainingWork);
-			System.out.println(ent.getName() + " working, " + remainingWork + " work remaining");
+			System.out.println(ent.getName() + " working at "+ lc.getLocation() +", " + remainingWork + " work remaining");
 			
 			if (remainingWork <= 0) 
 				finishJob(job, worker);

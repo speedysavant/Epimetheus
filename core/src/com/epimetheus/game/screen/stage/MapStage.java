@@ -82,7 +82,7 @@ public class MapStage extends Stage implements Screen {
 		for (Entity pawn: PawnGenerator.generateRandom(1, 50, 40, actionHandler)) {
 			systemController.addEntity(pawn);
 			((ActorEntity)(pawn)).toFront();
-			Pawns appear to occasionally lose their location when completing jobs? Or something like that.
+			
 		}
 		
 		systemController.addEntity(Items.generate("Test Item", new Location(1f,1f,1f), actionHandler));
