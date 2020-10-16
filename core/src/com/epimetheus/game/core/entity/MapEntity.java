@@ -1,5 +1,6 @@
 package com.epimetheus.game.core.entity;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +12,8 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.epimetheus.game.core.component.Component;
+import com.epimetheus.game.core.component.process.LocationComponent;
+import com.epimetheus.game.core.component.process.TerrainComponent;
 import com.epimetheus.game.core.component.render.ScaleComponent;
 import com.epimetheus.game.screen.util.ActionHandler;
 import com.epimetheus.game.screen.util.MouseMode;
@@ -26,6 +29,10 @@ public class MapEntity extends Actor implements Entity {
 	private List<Component> components = new LinkedList<>();
 	
 	private Map<Location, Tiles> tiles;
+	private Tiles[][] tileLookup;
+	private float[][] moveCostLookup;
+	private int width, height;
+	private Map<Location, Float> moveCosts = new HashMap<>();
 	
 	public MapEntity(ScaleComponent scaleComponent, final ActionHandler actionHandler) {
 		super();
@@ -49,15 +56,68 @@ public class MapEntity extends Actor implements Entity {
 	
 	public Map<Location, Tiles> getTiles() {
 		return tiles;
+		// This Class should be removed, along with the Map of Tiles.
 	}
 	public Tiles getTileAt(Location location) {
-		return tiles.get(location.floor());
+		Location loc = location.floor();
+		return tileLookup[(int)loc.getX()][(int)loc.getY()];
 	}
 	public void setTileAt(Location location, Tiles tile) {
-		tiles.put(location.floor(), tile);
+		Location loc = location.floor();
+		tileLookup[(int)loc.getX()][(int)loc.getY()] = tile;
 	}
 	public void setTiles(Map<Location, Tiles> tiles) {
 		this.tiles = tiles;
+		for (Entry<Location, Tiles> entry: tiles.entrySet())
+			moveCosts.put(entry.getKey(), entry.getValue().getPathCost());
+		
+		int w = 0;
+		int h = 0;
+		for (Entry<Location, Tiles> entry: tiles.entrySet()) {
+			if (entry.getKey().getX() > w)
+				w = (int)entry.getKey().getX();
+			if (entry.getKey().getY() > h)
+				h = (int)entry.getKey().getY();
+		}
+		
+		width = w+=2;
+		height = h+=2;
+		
+		tileLookup = new Tiles[width][height];
+		moveCostLookup = new float[width][height];
+		
+		for (Entry<Location, Tiles> entry: tiles.entrySet()) {
+			Location loc = entry.getKey();
+			tileLookup[(int)loc.getX()][(int)loc.getY()] = entry.getValue();
+			moveCostLookup[(int)loc.getX()][(int)loc.getY()] = entry.getValue().getPathCost();
+		}
+	}
+	
+	public boolean isInBounds(Location loc) {
+		loc = loc.floor();
+		return (loc.getX() >= 0 && loc.getX()< width && loc.getY() >= 0 && loc.getY() < height);
+	}
+	
+	public void addMoveCost(Entity ent) {
+		TerrainComponent tc = ((TerrainComponent)(ent.getComponent(TerrainComponent.class)));
+		LocationComponent lc = ((LocationComponent)(ent.getComponent(LocationComponent.class)));
+		if (tc != null && lc != null) {
+			Location loc = lc.getLocation().floor();
+			moveCostLookup[(int)loc.getX()][(int)loc.getY()] += tc.getPathCost();
+		}
+	}
+	public void removeMoveCost(Entity ent) {
+		TerrainComponent tc = ((TerrainComponent)(ent.getComponent(TerrainComponent.class)));
+		LocationComponent lc = ((LocationComponent)(ent.getComponent(LocationComponent.class)));
+		if (tc != null && lc != null) {
+			Location loc = lc.getLocation().floor();
+			moveCostLookup[(int)loc.getX()][(int)loc.getY()] -= tc.getPathCost();
+		}
+	}
+	public float getMoveCostAt(Location loc) {
+		if (isInBounds(loc))
+			return moveCostLookup[(int)loc.getX()][(int)loc.getY()];
+		else return Float.POSITIVE_INFINITY;
 	}
 	
 	@Override 

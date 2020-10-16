@@ -3,6 +3,7 @@ package com.epimetheus.game.core.system;
 import com.epimetheus.game.core.component.Component;
 import com.epimetheus.game.core.component.process.JobComponent;
 import com.epimetheus.game.core.component.process.LocationComponent;
+import com.epimetheus.game.core.component.process.MoveComponent;
 import com.epimetheus.game.core.component.process.PlanComponent;
 import com.epimetheus.game.core.component.process.WorkerComponent;
 import com.epimetheus.game.core.component.render.RenderComponent;
@@ -11,6 +12,7 @@ import com.epimetheus.game.core.entity.Entity;
 import com.epimetheus.game.core.entity.EntityList;
 import com.epimetheus.game.core.entity.Location;
 import com.epimetheus.game.core.system.process.JobSystem;
+import com.epimetheus.game.core.system.process.PathingSystem;
 import com.epimetheus.game.core.system.process.PlanSystem;
 import com.epimetheus.game.core.system.render.RenderSystem;
 import com.epimetheus.game.screen.stage.MapStage;
@@ -23,6 +25,7 @@ public class SystemController {
 	private PlanSystem planSystem;
 	private RenderSystem renderSystem;
 	private JobSystem jobSystem;
+	private PathingSystem pathingSystem;
 	
 	public SystemController(MapStage mapStage) {
 		this.mapStage = mapStage;
@@ -51,6 +54,12 @@ public class SystemController {
 		this.jobSystem = jobSystem;
 		jobSystem.setSystemController(this);
 	}
+	public PathingSystem getPathingSystem() {
+		return pathingSystem;
+	}
+	public void setPathingSystem(PathingSystem pathingSystem) {
+		this.pathingSystem = pathingSystem;
+	}
 	public EntityList getEntities() {
 		return entities;
 	}
@@ -78,6 +87,7 @@ public class SystemController {
 			if (c instanceof RenderComponent) renderSystem.accept(ent);
 			if (c instanceof JobComponent) jobSystem.accept(ent);
 			if (c instanceof WorkerComponent) jobSystem.accept(ent);
+			if (c instanceof MoveComponent) pathingSystem.accept(ent);
 		}
 	}
 	
@@ -85,5 +95,6 @@ public class SystemController {
 		planSystem.remove(ent);
 		renderSystem.remove(ent);
 		jobSystem.remove(ent);
+		pathingSystem.remove(ent);
 	}
 }

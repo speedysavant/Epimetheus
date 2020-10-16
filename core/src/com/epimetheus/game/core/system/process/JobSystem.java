@@ -8,6 +8,7 @@ import java.util.Map;
 import com.epimetheus.game.core.component.Component;
 import com.epimetheus.game.core.component.process.JobComponent;
 import com.epimetheus.game.core.component.process.LocationComponent;
+import com.epimetheus.game.core.component.process.MoveComponent;
 import com.epimetheus.game.core.component.process.WorkerComponent;
 import com.epimetheus.game.core.entity.Entity;
 import com.epimetheus.game.core.entity.EntityList;
@@ -42,27 +43,28 @@ public class JobSystem extends MultiSystem {
 		}
 		else if (ent.hasComponent(WorkerComponent.class)) 
 			jobSeekers.add(ent);
-		
 	}
 	
 	@Override
-	public void process() {
+	public void process(float delta) {
 		if (jobSeekers.isEmpty())
 			return;
 		
 		// Sort workers by need-to-work
 		for (Entity ent: jobSeekers) {
 			WorkerComponent worker = ((WorkerComponent)ent.getComponent(WorkerComponent.class));
-			if (worker.getCurrentJob() == null)
-				seekJob(ent, worker);
+			if (worker.getCurrentJob() == null) {
+				MoveComponent mover = ((MoveComponent)ent.getComponent(MoveComponent.class));
+				seekJob(ent, worker, mover);
+			}
 			else
-				processJob(ent, worker);
+				processJob(ent, worker, delta);
 		}
 	}
 	
 	
 	
-	private void seekJob(Entity ent, WorkerComponent worker) {
+	private void seekJob(Entity ent, WorkerComponent worker, MoveComponent mover) {
 		if (componentList.size() == 0)
 			return;
 		
@@ -73,17 +75,26 @@ public class JobSystem extends MultiSystem {
 		
 		worker.setCurrentJob(job.getEntity());
 		job.setWorker(ent);
+		mover.setTarget(((LocationComponent)(job.getEntity().getComponent(LocationComponent.class))).getLocation());
 	}
 	
-	private void processJob(Entity ent, WorkerComponent worker) {
+	private void processJob(Entity ent, WorkerComponent worker, float delta) {
+		LocationComponent lc = ((LocationComponent)(ent.getComponent(LocationComponent.class)));
 		JobComponent job = ((JobComponent)(worker.getCurrentJob().getComponent(JobComponent.class)));
-		int remainingWork = job.getWork() - worker.getWorkRate();
-		job.setWork(remainingWork);
-		System.out.println(ent.getName() + " working, " + remainingWork + " work remaining");
+		LocationComponent jlc = ((LocationComponent)(job.getEntity().getComponent(LocationComponent.class)));
+		float distance = lc.getLocation().distanceTo(jlc.getLocation());
 		
-		if (remainingWork <= 0) {
-			finishJob(job, worker);
+		if (distance > 1.0f) {
+			// System.out.println(ent.getName() + ", Job out of range, distance of " + distance);
+		} else {
+			float remainingWork = (job.getWork() - (worker.getWorkRate() * delta));
+			job.setWork(remainingWork);
+			System.out.println(ent.getName() + " working, " + remainingWork + " work remaining");
+			
+			if (remainingWork <= 0) 
+				finishJob(job, worker);
 		}
+		
 	}
 	
 	private void finishJob(JobComponent job, WorkerComponent worker) {

@@ -114,6 +114,12 @@ public class Location implements Comparable<Location>{
 		};
 	}
 	
+	public float distanceTo(Location loc) {
+		float xd = x-loc.x;
+		float yd = y-loc.y;
+		return (float)(Math.sqrt(xd*xd + yd*yd));
+	}
+	
 	@Override
 	public String toString() {
 		return "(" + x + ", " + y + ", " + z + ")";
@@ -122,8 +128,8 @@ public class Location implements Comparable<Location>{
 	public boolean equals(Object o) {
 		if (!(o instanceof Location))
 			return false;
-		Location loc = (Location) o;
-		return loc.x == x && loc.y == y && loc.z == z;
+		Location loc = ((Location) o);
+		return loc.x == x && loc.y == y;
 	}
 	@Override
 	public int hashCode() {
@@ -165,5 +171,11 @@ public class Location implements Comparable<Location>{
 		}
 		if (toRemove != null)
 			list.remove(toRemove);
+	}
+	
+	public static void main(String[] args) {
+		Location a = new Location(1,1,2);
+		Location b = new Location(1,1.0f,15f);
+		System.out.println("a = b :: " + a.equals(b) );
 	}
 }

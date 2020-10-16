@@ -1,11 +1,13 @@
 package com.epimetheus.game.screen.stage;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.epimetheus.game.core.entity.ActorEntity;
 import com.epimetheus.game.core.entity.Entity;
 import com.epimetheus.game.core.entity.EntityList;
 import com.epimetheus.game.core.entity.Flora;
@@ -15,6 +17,7 @@ import com.epimetheus.game.core.entity.MapEntity;
 import com.epimetheus.game.core.entity.Tiles;
 import com.epimetheus.game.core.system.SystemController;
 import com.epimetheus.game.core.system.process.JobSystem;
+import com.epimetheus.game.core.system.process.PathingSystem;
 import com.epimetheus.game.core.system.process.PlanSystem;
 import com.epimetheus.game.core.system.render.RenderSystem;
 import com.epimetheus.game.screen.ui.TileCursor;
@@ -48,10 +51,6 @@ public class MapStage extends Stage implements Screen {
 	private ActionHandler actionHandler;
 	private CameraHarness cameraHarness;
 	
-//	private PlanSystem planSystem;
-//	private RenderSystem renderSystem;
-//	private JobSystem jobSystem;
-	
 	/**
 	 * Creates a default MapStage with default viewport, camera, and a simple randomized world
 	 */
@@ -61,6 +60,7 @@ public class MapStage extends Stage implements Screen {
 		systemController.setJobSystem(new JobSystem());
 		systemController.setPlanSystem(new PlanSystem(this));
 		systemController.setRenderSystem(new RenderSystem(this));
+		systemController.setPathingSystem(new PathingSystem(this));
 		actionHandler = new ActionHandler(this);
 		cameraHarness = new CameraHarness(this);
 		
@@ -73,14 +73,17 @@ public class MapStage extends Stage implements Screen {
 		for (Entity water: ponds)
 			systemController.addEntity(water);
 		
-		for (Entity pawn: PawnGenerator.generateRandom(20, 50, 40, actionHandler))
-			systemController.addEntity(pawn);
-		
 		for (int i = 0; i < 50; i++)
 			systemController.addEntity(Flora.generate(
 					"Test Plant", 
 					new Location(MathUtils.random(49), MathUtils.random(39),0), 
 					actionHandler));
+		
+		for (Entity pawn: PawnGenerator.generateRandom(1, 50, 40, actionHandler)) {
+			systemController.addEntity(pawn);
+			((ActorEntity)(pawn)).toFront();
+			Pawns appear to occasionally lose their location when completing jobs? Or something like that.
+		}
 		
 		systemController.addEntity(Items.generate("Test Item", new Location(1f,1f,1f), actionHandler));
 		
@@ -107,27 +110,12 @@ public class MapStage extends Stage implements Screen {
 	 */
 	public void addEntity(Entity ent) {
 		systemController.addEntity(ent);
+		mapEnt.addMoveCost(ent);
 	}
-//		Location location = ((LocationComponent)(ent.getComponent(LocationComponent.class))).getLocation();
-//		EntityList ents = entitiesAt(location); 
-//		
-//		if (ents.size() != 0) {
-//			System.out.println("Unable to place entity, colliding with " + ents.size() + " entities");
-//			return;
-//		}
-//		
-//		entities.add(ent);
-//		
-//		if (ent instanceof ActorEntity)
-//			addActor((ActorEntity)ent);
-//		
-//		for (Component c: ent.getComponents()) {
-//			if (c instanceof PlanComponent) planSystem.accept(ent);
-//			if (c instanceof RenderComponent) renderSystem.accept(ent);
-//			if (c instanceof JobComponent) jobSystem.accept(ent);
-//			if (c instanceof WorkerComponent) jobSystem.accept(ent);
-//		}
-//	}
+	
+	public boolean isValidLocation(Location loc) {
+		return tileAt(loc) != null;
+	}
 	
 	/**
 	 * @param loc	The tile location, rounded down if not already
@@ -144,6 +132,11 @@ public class MapStage extends Stage implements Screen {
 		return systemController.getEntities().allEntitiesAt(loc);
 	}
 	
+	public float pathCostAt(Location loc) {
+		// This should add any entities at the location that might cause issues!
+		return mapEnt.getMoveCostAt(loc);
+	}
+	
 	/**
 	 * Draws all Entities to the Stage's Batch.
 	 * 
@@ -152,7 +145,9 @@ public class MapStage extends Stage implements Screen {
 	 */
 	@Override
 	public void draw() {
-		systemController.getJobSystem().process();
+		float delta = Gdx.graphics.getDeltaTime();
+		systemController.getJobSystem().process(delta);
+		systemController.getPathingSystem().process(delta);
 		
 		cameraHarness.update();
 		getViewport().getCamera().update();
@@ -160,7 +155,7 @@ public class MapStage extends Stage implements Screen {
 		super.draw();
 		
 		getBatch().begin();
-		systemController.getRenderSystem().process();
+		systemController.getRenderSystem().process(delta);
 		getBatch().end();
 	}
 	

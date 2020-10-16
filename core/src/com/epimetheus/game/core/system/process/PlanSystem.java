@@ -36,7 +36,7 @@ public class PlanSystem extends MonoSystem {
 	}
 
 	@Override
-	public void process() {
+	public void process(float delta) {
 		
 	}
 	

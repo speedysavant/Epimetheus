@@ -20,11 +20,29 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
  *
  */
 public enum Tiles {
-	SOIL, ROCKYSOIL, SAND, GRAVEL, STONE,
-	E_0, E_1, E_2, E_3, E_4, E_5, E_6, E_7, E_8;
+	SOIL (1.0f), 
+	ROCKYSOIL(1.1f), 
+	SAND(2.0f), 
+	GRAVEL(1.5f), 
+	STONE(2.5f),
+	E_0(1.0f), 
+	E_1(1.1f), 
+	E_2(1.2f), 
+	E_3(1.3f), 
+	E_4(1.4f), 
+	E_5(1.5f), 
+	E_6(1.6f), 
+	E_7(1.7f), 
+	E_8(1.8f);
 	
 	private static Map<Tiles, TextureRegion> textures = new HashMap<>();
 	private static int size = 128;
+	
+	private float pathCost = 1.0f;
+	
+	private Tiles(float pathCost) {
+		this.pathCost = pathCost;
+	}
 	
 	/**
 	 * Provides the pixel size of tile textures
@@ -37,6 +55,11 @@ public enum Tiles {
 	 * @param tile 	The Tiles type being requested 
 	 * @return		the TextureRegion appropriate to the given Tiles parameter.
 	 */
+	
+	public float getPathCost() {
+		return pathCost;
+	}
+	
 	public static TextureRegion getTexture(Tiles tile) {
 		return textures.get(tile);
 	}

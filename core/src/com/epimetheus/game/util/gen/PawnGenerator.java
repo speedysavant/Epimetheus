@@ -3,12 +3,14 @@ package com.epimetheus.game.util.gen;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.epimetheus.game.core.component.process.MoveComponent;
 import com.epimetheus.game.core.component.process.WorkerComponent;
 import com.epimetheus.game.core.component.render.RenderComponent;
 import com.epimetheus.game.core.entity.ActorEntity;
 import com.epimetheus.game.core.entity.Entity;
 import com.epimetheus.game.core.entity.EntityList;
 import com.epimetheus.game.core.entity.Location;
+import com.epimetheus.game.core.system.process.PathingSystem.MoveType;
 import com.epimetheus.game.screen.util.ActionHandler;
 
 public class PawnGenerator {
@@ -29,7 +31,8 @@ public class PawnGenerator {
 					1f, 
 					(RenderComponent)RenderComponent.generate(region), 
 					handler);
-			ent.addComponent(WorkerComponent.generate(1));
+			ent.addComponent(WorkerComponent.generate(50));
+			ent.addComponent(MoveComponent.generate(MoveType.WALK, 1f));
 			ents.add(ent);
 		}
 		

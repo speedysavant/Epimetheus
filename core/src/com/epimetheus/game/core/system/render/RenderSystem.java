@@ -61,7 +61,7 @@ public class RenderSystem extends MultiSystem {
 	}
 	
 	@Override
-	public void process() {
+	public void process(float delta) {
 		if (!componentList.isEmpty()) {
 			for (Map<Class<? extends Component>, Component> entry: componentList)
 				processRenderable(entry, batch);

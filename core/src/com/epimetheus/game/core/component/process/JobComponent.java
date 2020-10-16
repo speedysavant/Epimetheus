@@ -8,11 +8,11 @@ import com.epimetheus.game.core.system.process.JobSystem.Jobs;
 public class JobComponent extends AbstractComponent {
 
 	private Jobs job; 
-	private int work;
+	private float work;
 	private Entity target;
 	private Entity worker;
 	
-	private JobComponent(Jobs job, int work, Entity target) {
+	private JobComponent(Jobs job, float work, Entity target) {
 		this.setJob(job);
 		this.setWork(work);
 		this.setTarget(target);
@@ -24,10 +24,10 @@ public class JobComponent extends AbstractComponent {
 	public void setJob(Jobs job) {
 		this.job = job;
 	}
-	public int getWork() {
+	public float getWork() {
 		return work;
 	}
-	public void setWork(int work) {
+	public void setWork(float work) {
 		this.work = work;
 	}
 	public Entity getWorker() {
@@ -48,7 +48,7 @@ public class JobComponent extends AbstractComponent {
 		return JobComponent.class;
 	}
 	
-	public static JobComponent generate(Jobs job, int work, Entity target) {
+	public static JobComponent generate(Jobs job, float work, Entity target) {
 		return new JobComponent(job, work, target);
 	}
 }
